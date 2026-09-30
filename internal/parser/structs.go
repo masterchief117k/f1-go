@@ -1,7 +1,5 @@
 package parser
 
-import ()
-
 type WheelState struct {
 	SurfaceTemp   float64
 	CarcassTemp   float64

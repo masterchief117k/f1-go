@@ -80,11 +80,11 @@ func TestParseLapTimeString(t *testing.T) {
 }
 
 // Test case for lap time
-func TestParserLapJSON(t *testing.T) {
+func TestParseLapJSON(t *testing.T) {
 	validPayload := []byte(`{
     "lap_number": 44,
     "driver_number": 16,
-    "driver_code": "LEC",
+	"driver_code": "LEC",
     "team_name": "Ferrari",
     "lap_time": "1:22.450",
     "sector1_time": "24.120",
@@ -101,8 +101,11 @@ func TestParserLapJSON(t *testing.T) {
 	if record == nil {
 		t.Fatalf("expected record, got nil")
 	}
-	if record.Driver.DriverCode != "LEC" && record.LapNumber != 44 {
-		t.Errorf("error in metadata: got code %s, lap %d", record.Driver.DriverCode, record.LapNumber)
+	if record.Driver.DriverCode != "LEC" {
+		t.Errorf("error in metadata: got code %s", record.Driver.DriverCode)
+	}
+	if record.LapNumber != 44 {
+		t.Errorf("error in metadata: got codes lap %d", record.LapNumber)
 	}
 	if record.Timing.TotalTime == nil {
 		t.Fatalf("expected TotalTime pointer, got nil ")
