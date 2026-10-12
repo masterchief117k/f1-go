@@ -16,9 +16,9 @@ func main() {
 	//fmt.Println("hello world ")
 	var cnf flagsConfig
 	path := "data/jolpica"
-	flag.IntVar(&cnf.season, "season", 2022, "Driver season / year")
-	flag.StringVar(&cnf.data, "data", path, "this is path to data set")
-	flag.IntVar(&cnf.top, "top", 5, "check out the season leaders")
+	flag.IntVar(&cnf.season, "season", 2022, "input season as 4 digit year")
+	flag.StringVar(&cnf.data, "data", path, "folder with the jolpica CSVs ")
+	flag.IntVar(&cnf.top, "top", 5, "Top n drivers to show ")
 	flag.Parse()
 	fmt.Println("The season is ", cnf.season)
 	fmt.Println("The data is stored in  ", cnf.data)
