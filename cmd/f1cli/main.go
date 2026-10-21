@@ -1,11 +1,12 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
-	"time"
+	"path/filepath"
 )
 
 type flagsConfig struct {
@@ -14,33 +15,41 @@ type flagsConfig struct {
 	top    int
 }
 
+func checkTop(t int) error {
+	if t > 0 && t <= 22 {
+		return nil
+	}
+	return errors.New("top is out of range")
+}
+func checkSeason(s int) error {
+	if s >= 1950 && s <= 2025 {
+		return nil
+	}
+	return errors.New("season is out of bound")
+}
+
+func checkData(d string) error {
+	file, err := os.Open(d)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	return nil
+}
+
 func main() {
 	var cnf flagsConfig
-	var latestyear int
-	const oldestyear int = 1950
-	t := time.Now()
-	latestyear = t.Year()
-	path := "data/jolpica"
+	path := filepath.Join("data", "jolpica")
+	defaultfile := "season.csv"
 	flag.IntVar(&cnf.season, "season", 2022, "input season as 4 digit year")
-	flag.StringVar(&cnf.data, "data", path, "folder with the jolpica CSVs ")
+	flag.StringVar(&cnf.data, "data", defaultfile, "folder with the jolpica CSVs ")
 	flag.IntVar(&cnf.top, "top", 5, "Top n drivers to show ")
 	flag.Parse()
-	//season check
-
-	if cnf.season < oldestyear {
-		log.Fatalf("%d out of range", cnf.season)
+	data := filepath.Join(path, cnf.data)
+	err := errors.Join(checkTop(cnf.top), checkSeason(cnf.season), checkData(data))
+	if err != nil {
+		log.Fatal(err)
 	}
-	if cnf.season > latestyear {
-		log.Fatalf("%d out of range", cnf.season)
-	}
-	//top check
-	if cnf.top < 1 {
-		log.Fatalf("top values should be positive greater than zero")
-	}
-	if cnf.top > 22 {
-		log.Fatalf("there are no more than 22 driver at a single time in a season ")
-	}
-
 	fmt.Println("The season is ", cnf.season)
 	fmt.Println("The data is stored in  ", cnf.data)
 	fmt.Println("The top driver you are looking for", cnf.top)
