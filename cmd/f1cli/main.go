@@ -28,12 +28,14 @@ func checkSeason(s int) error {
 	return errors.New("season is out of bound")
 }
 
-func checkData(d string) error {
-	file, err := os.Open(d)
+func checkData(path string) error {
+	info, err := os.Stat(path)
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	if info.IsDir() {
+		return fmt.Errorf("expected a data file, but %q is a directory", path)
+	}
 	return nil
 }
 
