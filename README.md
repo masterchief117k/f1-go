@@ -108,7 +108,7 @@ data/jolpica/       the Jolpica CSV dump (not committed)
 
 ## Data sources
 
-- [Jolpica-F1](https://github.com/jolpica/jolpica-f1): historical results and the successor to the Ergast API.
+- [Jolpica-F1](https://github.com/jolpica/jolpica-f1): historical results and the successor to the Ergast API. The data is licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). See [`data/MANIFEST.md`](data/MANIFEST.md) for which dump this project uses.
 - [OpenF1](https://openf1.org): live and historical telemetry.
 
 This is an unofficial project and isn't associated with Formula 1 or the FIA.

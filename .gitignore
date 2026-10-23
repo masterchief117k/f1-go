@@ -27,6 +27,9 @@ go.work.sum
 # env file
 .env
 
+# Jolpica CSV dump: third-party data (CC BY-NC-SA 4.0), ~5 MB. See data/MANIFEST.md.
+data/jolpica/
+
 # Editor/IDE
 # .idea/
 # .vscode/
